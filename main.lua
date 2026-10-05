@@ -70,7 +70,7 @@ Frame.InputEnded:Connect(function(input)
     touchStartPosition = nil
 
     if elapsed <= 0.35 and movement <= 12 then
-        Frame2.Visible = true
+        Frame2.Visible = not Frame2.Visible
     end
 end)
 
