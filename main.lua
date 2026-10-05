@@ -26,10 +26,10 @@ local function updateFrame()
     end
 
     local viewport = camera.ViewportSize
-    local size = viewport.X * 0.20
+    local size = viewport.X * 0.10
 
     Frame.Size = UDim2.fromOffset(size, size)
-    Frame.Position = UDim2.new(0.4, 0, 0, 0)
+    Frame.Position = UDim2.new(0.45, 0, 0, 0)
 end
 
 updateFrame()
