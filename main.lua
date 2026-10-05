@@ -23,6 +23,7 @@ Frame.Parent = ScreenGui
 local Frame2 = Instance.new("Frame")
 Frame2.Name = "Piece2"
 Frame2.BorderSizePixel = 0
+Frame2.Visible = false
 Frame2.Parent = ScreenGui
 
 local function updateFrames()
@@ -42,6 +43,36 @@ local function updateFrames()
     Frame2.Size = UDim2.fromOffset(piece2Width, piece2Height)
     Frame2.Position = UDim2.new(0.10, 0, 0, piece1Size)
 end
+
+local activeTouch = nil
+local touchStartPosition = nil
+local touchStartTime = 0
+
+Frame.InputBegan:Connect(function(input)
+    if input.UserInputType ~= Enum.UserInputType.Touch then
+        return
+    end
+
+    activeTouch = input
+    touchStartPosition = input.Position
+    touchStartTime = os.clock()
+end)
+
+Frame.InputEnded:Connect(function(input)
+    if input ~= activeTouch then
+        return
+    end
+
+    local elapsed = os.clock() - touchStartTime
+    local movement = (input.Position - touchStartPosition).Magnitude
+
+    activeTouch = nil
+    touchStartPosition = nil
+
+    if elapsed <= 0.35 and movement <= 12 then
+        Frame2.Visible = true
+    end
+end)
 
 updateFrames()
 
