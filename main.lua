@@ -20,23 +20,33 @@ Frame.Name = "MainFrame"
 Frame.BorderSizePixel = 0
 Frame.Parent = ScreenGui
 
-local function updateFrame()
+local Frame2 = Instance.new("Frame")
+Frame2.Name = "Piece2"
+Frame2.BorderSizePixel = 0
+Frame2.Parent = ScreenGui
+
+local function updateFrames()
     local camera = Workspace.CurrentCamera
     if not camera then
         return
     end
 
     local viewport = camera.ViewportSize
-    local size = viewport.X * 0.10
+    local piece1Size = viewport.X * 0.10
+    local piece2Width = viewport.X * 0.80
+    local piece2Height = math.max(0, viewport.Y - piece1Size)
 
-    Frame.Size = UDim2.fromOffset(size, size)
+    Frame.Size = UDim2.fromOffset(piece1Size, piece1Size)
     Frame.Position = UDim2.new(0.45, 0, 0, 0)
+
+    Frame2.Size = UDim2.fromOffset(piece2Width, piece2Height)
+    Frame2.Position = UDim2.new(0.10, 0, 0, piece1Size)
 end
 
-updateFrame()
+updateFrames()
 
-Workspace:GetPropertyChangedSignal("CurrentCamera"):Connect(updateFrame)
+Workspace:GetPropertyChangedSignal("CurrentCamera"):Connect(updateFrames)
 
 if Workspace.CurrentCamera then
-    Workspace.CurrentCamera:GetPropertyChangedSignal("ViewportSize"):Connect(updateFrame)
+    Workspace.CurrentCamera:GetPropertyChangedSignal("ViewportSize"):Connect(updateFrames)
 end
