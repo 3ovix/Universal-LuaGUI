@@ -3,9 +3,10 @@ local Workspace = game:GetService("Workspace")
 
 local GUI_NAME = "UniversalLuaGUI"
 
-local oldGui = CoreGui:FindFirstChild(GUI_NAME)
-if oldGui then
-    oldGui:Destroy()
+for _, child in ipairs(CoreGui:GetChildren()) do
+    if child.Name == GUI_NAME then
+        child:Destroy()
+    end
 end
 
 local ScreenGui = Instance.new("ScreenGui")
